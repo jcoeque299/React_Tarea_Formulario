@@ -2,38 +2,19 @@ import { useRef } from "react"
 import { useState } from "react"
 
 function Formulario() {
-    //Se pone null porque el formulario no estará cargado en el momento de usar el ref
     const formulario = useRef(null)
-    let [error, setError] = useState("")
+    let [message, setMessage] = useState("")
 
     const handleSubmit = (e) => {
 
         e.preventDefault()
         const datos = new FormData(formulario.current)
-        console.log(datos)
 
-        console.log([...datos.entries()]) //Iterar sobre el FormData
+        const objetoDatos = Object.fromEntries([...datos.entries()])
 
-        const objetoDatos = Object.fromEntries([...datos.entries()]) //Convertir las entries a un objeto
-        console.log(objetoDatos)
-
-        //Se le asigna un nombre a cada key del objeto y se valida
         const {tareas, descripcion, estado} = objetoDatos
-        console.log(objetoDatos)
 
-        if(!tareas.trim()) {
-            setError("Tareas no puede estar vacio")
-            return
-        }
-        else if(!descripcion.trim()) {
-            setError("Descripcion no puede estar vacio")
-            return
-        }
-        else if(!estado.trim()) {
-            setError("Estado no puede estar vacio")
-            return
-        }
-        console.log("Enviando datos")
+        !tareas.trim() ? setMessage("Tareas no puede estar vacio") : (!descripcion.trim()) ? setMessage("Descripcion no puede estar vacio") : (!estado.trim()) ? setMessage("Estado no puede estar vacio") : (setMessage("Todo OK"))
     }
 
     return (
@@ -48,7 +29,7 @@ function Formulario() {
                 </select>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            <p>{error}</p>
+            <p>{message}</p>
         </>
         )
 }
