@@ -1,10 +1,10 @@
-import FormularioNoControlado from "./FormularioNoControlado"
+import FormularioNoControladoHook from "./FormularioNoControladoHook"
 import FormularioControlado from "./FormularioControlado"
 
 function App() {
   return (
     <div className="container">
-      <FormularioNoControlado />
+      <FormularioNoControladoHook />
     </div>
     
   )
